@@ -1,0 +1,89 @@
+========================================================================
+
+<h2>Your seat reservations</h2>
+
+<table border="1" cellspacing="0" cellpadding="6">
+    <thead><tr>
+        <th>Passenger name</th><th>Meal</th><th>Surcharge</th><th>Remove</th>
+    </tr></thead>
+        <h3 data-bind="visible: totalSurcharge() > 0">
+            Total surcharge: $<span data-bind="text: totalSurcharge().toFixed(2)"></span>
+        </h3>
+        <h2> Your seat reservations (<span data-bind="text: seats().length"></span>)</h2>
+        
+    <tbody data-bind="foreach: seats">
+        <tr>
+            <td> <input data-bind="value: meal().name"/></td>
+            <td><select data-bind="options: $root.availableMeals, value: meal, optionsText: 'mealName'"></select></td>
+            <td data-bind="text: formattedPrice"></td>
+            <td> <a href="#" data-bind="click: $root.removeSeat">Remove</a></td>            
+        </tr>    
+</tbody>
+        <tr><td colspan="4" height="2">
+            
+        </td></tr>
+<tr><td colspan="4" align="center">
+            <button data-bind="click: addSeat, enable: seats().length < 5">Reserve another seat</button>
+        </td></tr>
+
+</table>
+
+
+
+
+-------------------------------------------------------------------
+// Class to represent a row in the seat reservations grid
+function SeatReservation(name, initialMeal) {
+    var self = this;
+    self.name = name;
+    self.meal = ko.observable(initialMeal);
+    
+    self.formattedPrice = ko.computed(function() {
+        var price = self.meal().price;
+        return price ? "$ " + price.toFixed(2) : "None";
+    });
+    
+}
+
+// Overall viewmodel for this screen, along with initial state
+function ReservationsViewModel() {
+    var self = this;
+
+    // Non-editable catalog data - would come from the server
+    self.availableMeals = [
+        { name: "anvvsharma1", mealName: "Standard (Cheese)", price: 10 },
+        { name: "anvvsharma2", mealName: "Standard (sandwich)", price: 5 },
+        { name: "anvvsharma3", mealName: "Premium (lobster)", price: 34.95 },
+        { name: "anvvsharma4", mealName: "Ultimate (whole zebra)", price: 290 }
+    ];    
+
+// Editable data
+    self.seats = ko.observableArray([
+        new SeatReservation(self.availableMeals[0], self.availableMeals[0], self.availableMeals[0]),
+        new SeatReservation(self.availableMeals[1], self.availableMeals[1], self.availableMeals[1]),
+        new SeatReservation(self.availableMeals[2], self.availableMeals[2], self.availableMeals[2]),
+        new SeatReservation(self.availableMeals[3], self.availableMeals[3], self.availableMeals[3]),
+
+    ]);
+   
+    //Operations
+    self.addSeat = function() {
+        self.seats.push(new SeatReservation("", self.availableMeals[0], self.availableMeals[0]));
+    }
+    self.removeSeat = function(seat) {
+        
+        self.seats.remove(seat);
+    }
+    
+    self.totalSurcharge = ko.computed(function() {
+        var total=0;
+        for(var i=0; i<self.seats().length;i++)
+            total += self.seats()[i].meal().price;
+        return total;
+    });    
+        
+}
+
+ko.applyBindings(new ReservationsViewModel());
+
+========================================================================
