@@ -1,0 +1,2 @@
+Name,State,Service,Licensed,Version,OS,Shape,OCPU,MEMORY,SSD TB,Compartment,AD,PrivateIP,PublicIP,Oracle-Tags.CreatedBy,Oracle-Tags.CreatedOn
+W5SZDM4X7TG96133,STOPPED,ATP,YES,n/a,n/a,ATP,1,n/a,1,root,AP-HYDERABAD-1,n/a,n/a,default/anvvsharma.general@gmail.com,n/a

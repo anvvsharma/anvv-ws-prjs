@@ -1,0 +1,19 @@
+msgid "hello"
+msgstr "Hello World !!!"
+
+msgid "v_compartment_id"
+msgstr "ocid1.compartment.oc1..aaaaaaaael6rxzavybwasxz6ef5uppspivcshk3ohohk272rltt47xnipj2q"
+
+msgid "vcn_display_name"
+msgstr "NewVCN_py"
+
+msgid "vcn_dns_label"
+msgstr "newvcn_py"
+
+msgid "subnet_display_name"
+msgstr "newsubnet_py"
+
+msgid "subnet_dns_label"
+msgstr "NewSubnet_py"
+
+
